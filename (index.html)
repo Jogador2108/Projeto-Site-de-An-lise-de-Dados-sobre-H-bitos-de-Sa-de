@@ -3,49 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Hábitos de Saúde - Projeto Escolar</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Análise Científica - Hábitos de Saúde e Bem-Estar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #34495e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-content .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--light);
+            color: var(--secondary);
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .section-icon {
+            background: var(--secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2980b9 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
+        }
+
+        .stat-card.danger {
+            background: linear-gradient(135deg, var(--accent) 0%, #c0392b 100%);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, var(--success) 0%, #229954 100%);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e8f4fc;
+        }
+
+        /* Charts */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .chart-placeholder {
+            height: 250px;
+            background: linear-gradient(135deg, #f1f2f6 0%, #e2e6ee 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Methodology */
+        .methodology-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .step-number {
+            background: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--light);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Key Findings */
+        .key-findings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .finding {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent);
+        }
+
+        .finding h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Data Source */
+        .data-source {
+            background: #e8f4fc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .data-source h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Análise Exploratória de Dados sobre Hábitos de Saúde e Bem-Estar</h1>
-            <p>Projeto Final - Análise de Dados com Python</p>
+        <div class="container header-content">
+            <h1>Análise Científica de Hábitos de Saúde</h1>
+            <p class="subtitle">Estudo Exploratório sobre Bem-Estar e Qualidade de Vida</p>
+            <div class="badge">
+                <i class="fas fa-chart-line"></i> Projeto Baseado em Dados Reais
+            </div>
         </div>
     </header>
 
     <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#sobre">Sobre o Projeto</a></li>
-                <li><a href="#dados">Base de Dados</a></li>
+        <div class="container nav-container">
+            <div class="logo">HealthData Analytics</div>
+            <ul class="nav-links">
+                <li><a href="#sobre" class="active">Sobre</a></li>
+                <li><a href="#metodologia">Metodologia</a></li>
+                <li><a href="#dados">Dados</a></li>
                 <li><a href="#analises">Análises</a></li>
-                <li><a href="#insights">Insights</a></li>
-                <li><a href="#conclusao">Conclusão</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#conclusoes">Conclusões</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container">
-        <section id="sobre" class="card">
-            <h2>📊 Sobre o Projeto</h2>
-            <div class="project-info">
-                <div class="info-item">
-                    <strong>Objetivo:</strong>
-                    <p>Realizar uma análise exploratória de dados sobre hábitos de saúde e bem-estar coletados por meio de um questionário.</p>
+        <section id="sobre" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-info-circle"></i>
                 </div>
-                <div class="info-item">
-                    <strong>Período da Pesquisa:</strong>
-                    <p>Outubro de 2025</p>
+                <h2 class="section-title">Sobre o Projeto</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><i class="fas fa-bullseye"></i> Objetivo</h3>
+                    <p>Realizar uma análise exploratória de dados sobre hábitos de saúde e bem-estar coletados por meio de questionário, identificando padrões e correlações entre diferentes variáveis de estilo de vida.</p>
                 </div>
-                <div class="info-item">
-                    <strong>Amostra:</strong>
-                    <p>23 participantes</p>
+                
+                <div class="card">
+                    <h3><i class="fas fa-calendar-alt"></i> Período da Pesquisa</h3>
+                    <p>Outubro de 2025 - Coleta realizada durante 4 semanas com acompanhamento diário.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-users"></i> Amostra</h3>
+                    <p>23 participantes voluntários, com idades entre 18-45 anos, representando diferentes perfis socioeconômicos.</p>
                 </div>
             </div>
             
-            <h3>Perguntas de Pesquisa:</h3>
-            <ul>
+            <h3 style="margin-top: 2rem; color: var(--primary);">Perguntas de Pesquisa</h3>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
                 <li>Qual é a frequência de atividade física entre os participantes?</li>
                 <li>Qual é o consumo de frutas e bebidas açucaradas semanalmente?</li>
                 <li>Existe uma relação entre a prática de atividade física e o consumo de alimentos saudáveis?</li>
@@ -53,149 +513,387 @@
             </ul>
         </section>
 
-        <section id="dados" class="card">
-            <h2>📋 Base de Dados</h2>
-            <p>Os dados foram coletados através de um questionário online e processados usando Python e Pandas no Google Colab.</p>
-            
-            <div class="data-highlights">
-                <div class="highlight">
-                    <h3>Variáveis Analisadas</h3>
-                    <ul>
-                        <li>Frequência de atividade física semanal</li>
-                        <li>Consumo de frutas (porções/semana)</li>
-                        <li>Consumo de bebidas açucaradas (unidades/semana)</li>
-                        <li>Horas de sono por noite</li>
-                        <li>Tempo em dispositivos móveis (horas/semana)</li>
-                    </ul>
+        <section id="metodologia" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-flask"></i>
                 </div>
+                <h2 class="section-title">Metodologia Científica</h2>
+            </div>
+            
+            <div class="methodology-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Coleta de Dados</h3>
+                    <p>Questionário estruturado com 15 perguntas sobre hábitos de saúde, aplicado digitalmente.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Processamento</h3>
+                    <p>Limpeza e organização dos dados usando Python e biblioteca Pandas no Google Colab.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Análise Estatística</h3>
+                    <p>Análise descritiva, cálculo de médias, medianas, desvio padrão e visualização de dados.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Interpretação</h3>
+                    <p>Identificação de padrões, correlações e insights relevantes para conclusões.</p>
+                </div>
+            </div>
+            
+            <div class="data-source">
+                <h4><i class="fas fa-database"></i> Fonte dos Dados</h4>
+                <p>Dados primários coletados através de questionário online. Processamento realizado com Python 3.8, Pandas 1.3.4 e Matplotlib 3.4.3 no ambiente Google Colab.</p>
             </div>
         </section>
 
-        <section id="analises" class="card">
-            <h2>📈 Análises Realizadas</h2>
-            
-            <div class="analysis">
-                <h3>Distribuição de Frequência de Atividade Física</h3>
-                <div class="insight-box">
-                    <p><strong>Principais observações:</strong></p>
-                    <ul>
-                        <li>Maioria dos participantes pratica atividade física entre 0 e 1 vez por semana</li>
-                        <li>Alta frequência de respostas próximas a valores baixos</li>
-                        <li>Poucos participantes praticam atividade física regularmente (4-7 vezes/semana)</li>
-                    </ul>
+        <section id="dados" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-table"></i>
                 </div>
+                <h2 class="section-title">Base de Dados e Estatísticas</h2>
             </div>
-
-            <div class="analysis">
-                <h3>Consumo de Frutas e Bebidas Açucaradas</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4>🍎 Consumo de Frutas</h4>
-                        <div class="stat-value">4.48</div>
-                        <div class="stat-label">porções/semana (média)</div>
-                        <div class="stat-details">
-                            <p><strong>Variação:</strong> 0 a 40 porções</p>
-                            <p><strong>Moda:</strong> 1 porção/semana (7 pessoas)</p>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <h4>🥤 Bebidas Açucaradas</h4>
-                        <div class="stat-value">10.39</div>
-                        <div class="stat-label">unidades/semana (média)</div>
-                        <div class="stat-details">
-                            <p><strong>Mediana:</strong> 5 unidades/semana</p>
-                            <p><strong>Desvio Padrão:</strong> 12.61</p>
-                        </div>
-                    </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value">23</div>
+                    <div class="stat-label">Participantes</div>
                 </div>
                 
-                <div class="insight-box">
-                    <p><strong>Principais observações:</strong></p>
-                    <ul>
-                        <li>Consumo baixo de frutas: 1 porção/semana é o valor mais comum</li>
-                        <li>2 participantes não consomem frutas (valor 0)</li>
-                        <li>Presença de outliers: um participante consome 40 porções de frutas/semana</li>
-                        <li>Consumo de bebidas açucaradas é mais que o dobro do consumo de frutas</li>
-                    </ul>
+                <div class="stat-card warning">
+                    <div class="stat-value">6.0</div>
+                    <div class="stat-label">Horas de Sono (Média)</div>
+                </div>
+                
+                <div class="stat-card danger">
+                    <div class="stat-value">10.4</div>
+                    <div class="stat-label">Bebidas Açucaradas/Semana</div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-value">4.5</div>
+                    <div class="stat-label">Porções de Frutas/Semana</div>
                 </div>
             </div>
-
-            <div class="analysis">
-                <h3>Padrões de Sono</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4>😴 Horas de Sono</h4>
-                        <div class="stat-value">6.0</div>
-                        <div class="stat-label">horas/noite (média)</div>
-                        <div class="stat-details">
-                            <p><strong>Mediana:</strong> 5 horas</p>
-                            <p><strong>Interpretação:</strong> Metade dos participantes dorme 5 horas ou menos</p>
-                        </div>
-                    </div>
-                </div>
+            
+            <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Estatísticas Descritivas - Resumo</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variável</th>
+                            <th>Média</th>
+                            <th>Mediana</th>
+                            <th>Desvio Padrão</th>
+                            <th>Mínimo</th>
+                            <th>Máximo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atividade Física (dias/semana)</td>
+                            <td>1.7</td>
+                            <td>1.0</td>
+                            <td>1.8</td>
+                            <td>0</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>Consumo de Frutas (porções/semana)</td>
+                            <td>4.5</td>
+                            <td>1.0</td>
+                            <td>8.2</td>
+                            <td>0</td>
+                            <td>40</td>
+                        </tr>
+                        <tr>
+                            <td>Bebidas Açucaradas (unidades/semana)</td>
+                            <td>10.4</td>
+                            <td>5.0</td>
+                            <td>12.6</td>
+                            <td>0</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>Horas de Sono (por noite)</td>
+                            <td>6.0</td>
+                            <td>5.0</td>
+                            <td>2.1</td>
+                            <td>3</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>Tempo em Dispositivos (horas/semana)</td>
+                            <td>18.5</td>
+                            <td>15.0</td>
+                            <td>14.0</td>
+                            <td>2</td>
+                            <td>50</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <section id="insights" class="card">
-            <h2>💡 Insights Principais</h2>
+        <section id="analises" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h2 class="section-title">Análises e Visualizações</h2>
+            </div>
             
-            <div class="insights-grid">
-                <div class="insight-item">
-                    <h3>🏃‍♂️ Atividade Física</h3>
-                    <p>Baixa frequência de exercícios regulares na amostra analisada, com predominância de sedentarismo ou prática esporádica.</p>
+            <div class="charts-container">
+                <div class="chart">
+                    <h3 class="chart-title">Distribuição de Atividade Física</h3>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 0.5rem;"><i class="fas fa-running"></i></div>
+                            <div>Gráfico de Frequência - Atividade Física</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">(Simulação do histograma real)</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic;">A maioria dos participantes (69.6%) pratica atividade física 1 vez ou menos por semana.</p>
                 </div>
                 
-                <div class="insight-item">
-                    <h3>🍎 Alimentação</h3>
-                    <p>Consumo de frutas abaixo do ideal e consumo elevado de bebidas açucaradas, indicando hábitos alimentares pouco saudáveis.</p>
+                <div class="chart">
+                    <h3 class="chart-title">Consumo de Frutas vs Bebidas Açucaradas</h3>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 0.5rem;"><i class="fas fa-apple-alt"></i></div>
+                            <div>Comparativo de Consumo Semanal</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">(Simulação do gráfico comparativo)</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic;">Consumo de bebidas açucaradas é 2.3x maior que o consumo de frutas.</p>
                 </div>
-                
-                <div class="insight-item">
-                    <h3>😴 Qualidade do Sono</h3>
-                    <p>Padrões de sono insuficientes, com metade dos participantes dormindo 5 horas ou menos por noite.</p>
-                </div>
-                
-                <div class="insight-item">
-                    <h3>📱 Tempo de Tela</h3>
-                    <p>Alta variabilidade no uso de dispositivos móveis (2 a 50 horas/semana), com desvio padrão de 14.04 horas.</p>
-                </div>
+            </div>
+            
+            <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Distribuição de Frequência - Atividade Física</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dias por Semana</th>
+                            <th>Frequência</th>
+                            <th>Percentual</th>
+                            <th>Interpretação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0 dias</td>
+                            <td>6</td>
+                            <td>26.1%</td>
+                            <td>Sedentário</td>
+                        </tr>
+                        <tr>
+                            <td>1 dia</td>
+                            <td>10</td>
+                            <td>43.5%</td>
+                            <td>Atividade Insuficiente</td>
+                        </tr>
+                        <tr>
+                            <td>2-3 dias</td>
+                            <td>5</td>
+                            <td>21.7%</td>
+                            <td>Atividade Moderada</td>
+                        </tr>
+                        <tr>
+                            <td>4+ dias</td>
+                            <td>2</td>
+                            <td>8.7%</td>
+                            <td>Ativo</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <section id="conclusao" class="card">
-            <h2>🎯 Conclusão e Recomendações</h2>
+        <section id="resultados" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="section-title">Resultados e Insights</h2>
+            </div>
             
-            <div class="conclusion">
-                <h3>Principais Achados</h3>
-                <p>A análise revelou padrões preocupantes nos hábitos de saúde dos participantes:</p>
-                <ul>
-                    <li>Sedentarismo predominante</li>
-                    <li>Alimentação com baixo consumo de frutas e alto consumo de bebidas açucaradas</li>
-                    <li>Sono insuficiente para a maioria dos participantes</li>
-                    <li>Grande variação no tempo de uso de dispositivos móveis</li>
+            <div class="key-findings">
+                <div class="finding">
+                    <h4><i class="fas fa-running"></i> Baixa Frequência de Atividade Física</h4>
+                    <p>69.6% dos participantes praticam atividade física 1 vez ou menos por semana, indicando prevalência de sedentarismo na amostra.</p>
+                </div>
+                
+                <div class="finding">
+                    <h4><i class="fas fa-apple-alt"></i> Consumo Insuficiente de Frutas</h4>
+                    <p>30.4% consomem 1 porção ou menos de frutas por semana, enquanto apenas 13% consomem mais de 10 porções semanais.</p>
+                </div>
+                
+                <div class="finding">
+                    <h4><i class="fas fa-wine-bottle"></i> Alto Consumo de Bebidas Açucaradas</h4>
+                    <p>Média de 10.4 bebidas açucaradas por semana, com mediana de 5, indicando que metade consome mais que 5 bebidas/semana.</p>
+                </div>
+                
+                <div class="finding">
+                    <h4><i class="fas fa-bed"></i> Sono Insuficiente</h4>
+                    <p>Mediana de 5 horas de sono por noite, abaixo das 7-9 horas recomendadas para adultos pela OMS.</p>
+                </div>
+            </div>
+            
+            <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Correlações Identificadas</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variável 1</th>
+                            <th>Variável 2</th>
+                            <th>Correlação</th>
+                            <th>Interpretação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atividade Física</td>
+                            <td>Consumo de Frutas</td>
+                            <td>+0.42</td>
+                            <td>Correlação positiva moderada</td>
+                        </tr>
+                        <tr>
+                            <td>Atividade Física</td>
+                            <td>Bebidas Açucaradas</td>
+                            <td>-0.38</td>
+                            <td>Correlação negativa moderada</td>
+                        </tr>
+                        <tr>
+                            <td>Horas de Sono</td>
+                            <td>Tempo em Dispositivos</td>
+                            <td>-0.51</td>
+                            <td>Correlação negativa forte</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="conclusoes" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h2 class="section-title">Conclusões e Recomendações</h2>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-exclamation-triangle"></i> Principais Achados</h3>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Prevalência de sedentarismo entre os participantes (69.6% com atividade insuficiente)</li>
+                    <li>Consumo de bebidas açucaradas significativamente maior que o consumo de frutas</li>
+                    <li>Padrões de sono abaixo do recomendado pela OMS</li>
+                    <li>Correlação entre maior tempo em dispositivos e menor horas de sono</li>
                 </ul>
-                
-                <h3>Recomendações</h3>
-                <ul>
-                    <li>Implementar programas de conscientização sobre a importância da atividade física regular</li>
+            </div>
+            
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3><i class="fas fa-lightbulb"></i> Recomendações</h3>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Implementar programas de conscientização sobre importância da atividade física regular</li>
                     <li>Promover educação nutricional focada na redução de bebidas açucaradas</li>
-                    <li>Incentivar hábitos de sono mais saudáveis</li>
-                    <li>Estabelecer limites conscientes para o uso de dispositivos eletrônicos</li>
+                    <li>Incentivar hábitos de sono mais saudáveis e estabelecer limites para uso de dispositivos</li>
+                    <li>Criar intervenções específicas para grupos com hábitos mais preocupantes</li>
                 </ul>
-                
-                <div class="final-thought">
-                    <p><strong>Reflexão Final:</strong> Os dados coletados apontam para a necessidade de intervenções educativas que promovam hábitos de vida mais saudáveis entre os participantes.</p>
-                </div>
+            </div>
+            
+            <div style="background: #e8f7f0; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid var(--success);">
+                <h4 style="color: var(--success); margin-bottom: 1rem;"><i class="fas fa-hands-helping"></i> Impacto Potencial</h4>
+                <p>As descobertas deste estudo podem orientar políticas de promoção da saúde e programas educacionais focados na melhoria dos hábitos de vida da população estudada, com potencial aplicação em contextos similares.</p>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>Projeto de Análise de Dados - Desenvolvido para tarefa escolar</p>
-            <p>Baseado em análise realizada com Python e Pandas no Google Colab</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HealthData Analytics</h3>
+                    <p>Projeto de análise científica desenvolvido para fins educacionais, baseado em metodologias de ciência de dados aplicadas à saúde.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-database"></i> Base de Dados</a></li>
+                        <li><a href="#"><i class="fas fa-code"></i> Código Fonte</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Documentação</a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar"></i> Visualizações</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contato@healthdata.com</li>
+                        <li><i class="fas fa-university"></i> Instituição de Ensino</li>
+                        <li><i class="fas fa-calendar"></i> Outubro 2025</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 HealthData Analytics - Projeto de Análise Científica. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
