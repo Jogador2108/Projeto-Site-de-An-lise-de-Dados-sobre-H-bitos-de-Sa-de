@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Hábitos de Saúde - Projeto Escolar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Análise Exploratória de Dados sobre Hábitos de Saúde e Bem-Estar</h1>
+            <p>Projeto Final - Análise de Dados com Python</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#sobre">Sobre o Projeto</a></li>
+                <li><a href="#dados">Base de Dados</a></li>
+                <li><a href="#analises">Análises</a></li>
+                <li><a href="#insights">Insights</a></li>
+                <li><a href="#conclusao">Conclusão</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="sobre" class="card">
+            <h2>📊 Sobre o Projeto</h2>
+            <div class="project-info">
+                <div class="info-item">
+                    <strong>Objetivo:</strong>
+                    <p>Realizar uma análise exploratória de dados sobre hábitos de saúde e bem-estar coletados por meio de um questionário.</p>
+                </div>
+                <div class="info-item">
+                    <strong>Período da Pesquisa:</strong>
+                    <p>Outubro de 2025</p>
+                </div>
+                <div class="info-item">
+                    <strong>Amostra:</strong>
+                    <p>23 participantes</p>
+                </div>
+            </div>
+            
+            <h3>Perguntas de Pesquisa:</h3>
+            <ul>
+                <li>Qual é a frequência de atividade física entre os participantes?</li>
+                <li>Qual é o consumo de frutas e bebidas açucaradas semanalmente?</li>
+                <li>Existe uma relação entre a prática de atividade física e o consumo de alimentos saudáveis?</li>
+                <li>Como variam os padrões de sono e o tempo de tela entre os participantes?</li>
+            </ul>
+        </section>
+
+        <section id="dados" class="card">
+            <h2>📋 Base de Dados</h2>
+            <p>Os dados foram coletados através de um questionário online e processados usando Python e Pandas no Google Colab.</p>
+            
+            <div class="data-highlights">
+                <div class="highlight">
+                    <h3>Variáveis Analisadas</h3>
+                    <ul>
+                        <li>Frequência de atividade física semanal</li>
+                        <li>Consumo de frutas (porções/semana)</li>
+                        <li>Consumo de bebidas açucaradas (unidades/semana)</li>
+                        <li>Horas de sono por noite</li>
+                        <li>Tempo em dispositivos móveis (horas/semana)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="analises" class="card">
+            <h2>📈 Análises Realizadas</h2>
+            
+            <div class="analysis">
+                <h3>Distribuição de Frequência de Atividade Física</h3>
+                <div class="insight-box">
+                    <p><strong>Principais observações:</strong></p>
+                    <ul>
+                        <li>Maioria dos participantes pratica atividade física entre 0 e 1 vez por semana</li>
+                        <li>Alta frequência de respostas próximas a valores baixos</li>
+                        <li>Poucos participantes praticam atividade física regularmente (4-7 vezes/semana)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="analysis">
+                <h3>Consumo de Frutas e Bebidas Açucaradas</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>🍎 Consumo de Frutas</h4>
+                        <div class="stat-value">4.48</div>
+                        <div class="stat-label">porções/semana (média)</div>
+                        <div class="stat-details">
+                            <p><strong>Variação:</strong> 0 a 40 porções</p>
+                            <p><strong>Moda:</strong> 1 porção/semana (7 pessoas)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4>🥤 Bebidas Açucaradas</h4>
+                        <div class="stat-value">10.39</div>
+                        <div class="stat-label">unidades/semana (média)</div>
+                        <div class="stat-details">
+                            <p><strong>Mediana:</strong> 5 unidades/semana</p>
+                            <p><strong>Desvio Padrão:</strong> 12.61</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-box">
+                    <p><strong>Principais observações:</strong></p>
+                    <ul>
+                        <li>Consumo baixo de frutas: 1 porção/semana é o valor mais comum</li>
+                        <li>2 participantes não consomem frutas (valor 0)</li>
+                        <li>Presença de outliers: um participante consome 40 porções de frutas/semana</li>
+                        <li>Consumo de bebidas açucaradas é mais que o dobro do consumo de frutas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="analysis">
+                <h3>Padrões de Sono</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>😴 Horas de Sono</h4>
+                        <div class="stat-value">6.0</div>
+                        <div class="stat-label">horas/noite (média)</div>
+                        <div class="stat-details">
+                            <p><strong>Mediana:</strong> 5 horas</p>
+                            <p><strong>Interpretação:</strong> Metade dos participantes dorme 5 horas ou menos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insights" class="card">
+            <h2>💡 Insights Principais</h2>
+            
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <h3>🏃‍♂️ Atividade Física</h3>
+                    <p>Baixa frequência de exercícios regulares na amostra analisada, com predominância de sedentarismo ou prática esporádica.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h3>🍎 Alimentação</h3>
+                    <p>Consumo de frutas abaixo do ideal e consumo elevado de bebidas açucaradas, indicando hábitos alimentares pouco saudáveis.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h3>😴 Qualidade do Sono</h3>
+                    <p>Padrões de sono insuficientes, com metade dos participantes dormindo 5 horas ou menos por noite.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h3>📱 Tempo de Tela</h3>
+                    <p>Alta variabilidade no uso de dispositivos móveis (2 a 50 horas/semana), com desvio padrão de 14.04 horas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusao" class="card">
+            <h2>🎯 Conclusão e Recomendações</h2>
+            
+            <div class="conclusion">
+                <h3>Principais Achados</h3>
+                <p>A análise revelou padrões preocupantes nos hábitos de saúde dos participantes:</p>
+                <ul>
+                    <li>Sedentarismo predominante</li>
+                    <li>Alimentação com baixo consumo de frutas e alto consumo de bebidas açucaradas</li>
+                    <li>Sono insuficiente para a maioria dos participantes</li>
+                    <li>Grande variação no tempo de uso de dispositivos móveis</li>
+                </ul>
+                
+                <h3>Recomendações</h3>
+                <ul>
+                    <li>Implementar programas de conscientização sobre a importância da atividade física regular</li>
+                    <li>Promover educação nutricional focada na redução de bebidas açucaradas</li>
+                    <li>Incentivar hábitos de sono mais saudáveis</li>
+                    <li>Estabelecer limites conscientes para o uso de dispositivos eletrônicos</li>
+                </ul>
+                
+                <div class="final-thought">
+                    <p><strong>Reflexão Final:</strong> Os dados coletados apontam para a necessidade de intervenções educativas que promovam hábitos de vida mais saudáveis entre os participantes.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Projeto de Análise de Dados - Desenvolvido para tarefa escolar</p>
+            <p>Baseado em análise realizada com Python e Pandas no Google Colab</p>
+        </div>
+    </footer>
+</body>
+</html>
